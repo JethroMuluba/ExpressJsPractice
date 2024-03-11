@@ -16,6 +16,11 @@ app.get('/about-me', (req, res) => {
 
 });
 
+
+app.use((req, res) => {
+    res.status(`${runStatus}`).sendFile('/html/error.html', { root: __dirname});   
+})
+
 app.listen(port, () => {
     console.log(`${portMessage} ${port}`);
 });
