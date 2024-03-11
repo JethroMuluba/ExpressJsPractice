@@ -9,6 +9,11 @@ const runStatus = 200;
 
 app.get('/', (req, res, next) => {
     res.status(`${runStatus}`).sendFile('/html/home.html', { root: __dirname})    
+});
+
+app.get('/about-me', (req, res) => {
+    res.status(`${runStatus}`).sendFile('/html/aboutMe.html', { root: __dirname})    
+
 })
 
 app.listen(port, () => {
