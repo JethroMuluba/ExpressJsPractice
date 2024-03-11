@@ -1,11 +1,18 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const portMessage = "This app run on the port:";
+const portMessage = "This app is running on the port:";
 const errorMessage = 'Error during server creating';
 const runStatus = 200;
 const errorStatus = 404;
 const redirectedStatus = 300;
+
+
+//Creat a Middleware to show the request times for each request.
+app.use((req, res, next) => {
+    console.log("Time of requesting: " + Date().toString());
+    next();
+});
 
 //get home
 app.get('/home', (req, res, next) => {
@@ -32,4 +39,4 @@ app.use((req, res) => {
 app.listen(port, () => {
     console.log(`${portMessage} ${port}`);
 });
-console.log(`${errorMessage}`);
+// console.log(`${errorMessage}`);
