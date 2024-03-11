@@ -1,12 +1,16 @@
 const express = require('express');
 const app = express();
+const port = 3000;
+const portMessage = "This app run on the port:";
+const clientMessage = 'Welcome To My Trying App';
+const errorMessage = 'Error during server creating';
 
 
 app.get('/', (req, res, next) => {
-    res.send('Welcome To My Trying App')    
+    res.send(`${clientMessage}`)    
 })
 
-app.listen(4000, () => {
-    console.log('This app run on the port 4000');
+app.listen(port, () => {
+    console.log(`${portMessage} ${port}`);
 });
-console.log('Error during server creating');
+console.log(`${errorMessage}`);
