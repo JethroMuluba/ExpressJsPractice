@@ -4,9 +4,17 @@ const port = 3000;
 const portMessage = "This app is running on the port:";
 const errorMessage = 'Error during server creating';
 const runStatus = 200;
-const errorStatus = 500;
+const errorStatus = 404;
 const redirectedStatus = 300;
 const morgan = require ('morgan');
+
+//Middleware of application
+const loggerMiddleware = (req, res, next) => {
+    console.log('Request received to: '+ req.url);
+    next();
+};
+
+app.use(loggerMiddleware)
 
 
 //Creat a Middleware that return static contents from public folder.
