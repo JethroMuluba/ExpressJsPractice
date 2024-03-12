@@ -4,7 +4,7 @@ const port = 3000;
 const portMessage = "This app is running on the port:";
 const errorMessage = 'Error during server creating';
 const runStatus = 200;
-const errorStatus = 404;
+const pageNoFundStatus = 404;
 const redirectedStatus = 300;
 const morgan = require ('morgan');
 
@@ -14,7 +14,7 @@ const loggerMiddleware = (req, res, next) => {
     next();
 };
 
-app.use(loggerMiddleware)
+app.use(loggerMiddleware);
 
 
 //Creat a Middleware that return static contents from public folder.
@@ -35,8 +35,25 @@ app.get('/home', (req, res, next) => {
     res.status(`${runStatus}`).sendFile('/html/home.html', { root: __dirname});   
 });
 
+
+//Creat Middleware specifical to authenticat user before to access in about rout
+const authMiddleware = (req, res, next) => {
+    const userAuthenticated = [
+        {
+            userName : 'jethroMuluba',
+            password :1234,
+        },
+    ];
+
+    //check user authenticated
+    if (userAuthenticated[0].userName === 'jethroMuluba' && userAuthenticated[0].password === 1234 ) {
+        next();
+    } else {
+        res.send('Access refused')
+    }
+}
 //get about-me
-app.get('/about-me', (req, res) => {
+app.get('/about-me', authMiddleware, (req, res) => {
     res.status(`${runStatus}`).sendFile('/html/aboutMe.html', { root: __dirname});   
 
 });
@@ -49,7 +66,7 @@ app.get('/', (req, res) => {
 
 //creat Middleware to serve when user try to enter a wrong url
 app.use((req, res) => {
-    res.status(`${errorStatus}`).sendFile('/html/error.html', { root: __dirname});   
+    res.status(`${pageNoFundStatus}`).sendFile('/html/pageNoFund.html', { root: __dirname});   
 })
 
 app.listen(port, () => {
