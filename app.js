@@ -8,7 +8,7 @@ const errorStatus = 404;
 const redirectedStatus = 300;
 
 
-//Funtion that return static contents from public folder.
+//Creat a Middleware that return static contents from public folder.
 app.use(express.static('public'));
 
 
