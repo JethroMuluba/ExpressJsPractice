@@ -1,0 +1,25 @@
+[
+    {
+        "id" : 1,
+        "servicePeriod" : "May 2022 - June 2023",
+        "postOccuped" : "UI/UX Designer",
+        "entreprise" : "Amazon",
+        "details" : "Lorem ipsum dolor sit amet, coectetur adipisicing elit, sed do eiusmod temp incididunt ut labore."
+    },
+
+    {
+        "id" : 2,
+        "servicePeriod" : "March 2023 - December 2023",
+        "postOccuped" : "UI/UX Designer",
+        "entreprise" : "Google",
+        "details" : "Lorem ipsum dolor sit amet, coectetur adipisicing elit, sed do eiusmod temp incididunt ut labore."
+    },
+
+    {
+        "id" : 3,
+        "servicePeriod" : "January 2024 - Until Now",
+        "postOccuped" : "Dev front-end",
+        "entreprise" : "Facebook",
+        "details" : "Lorem ipsum dolor sit amet, coectetur adipisicing elit, sed do eiusmod temp incididunt ut labore."
+    }
+]
