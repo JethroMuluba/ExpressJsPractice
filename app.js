@@ -4,7 +4,7 @@ const port = 3000;
 const portMessage = "This app is running on the port:";
 const errorMessage = 'Error during server creating';
 const runStatus = 200;
-const errorStatus = 404;
+const errorStatus = 500;
 const redirectedStatus = 300;
 const morgan = require ('morgan');
 
