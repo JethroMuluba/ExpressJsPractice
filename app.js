@@ -1,12 +1,23 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const portMessage = "This app is running on the port:";
-const errorMessage = 'An error has occurred!';
-const runStatus = 200;
-const redirectedStatus = 300;
-const pageNoFundStatus = 404;
-const errorStatus = 500;
+
+const messagesArray = [
+    {
+        portMessage : "This app is running on the port:",
+        errorMessage : 'An error has occurred!',
+    }
+]
+
+const statusArray = [
+    {
+        runStatus : 200,
+        redirectedStatus : 300,
+        pageNoFundStatus : 404,
+        errorStatus : 500,
+    }
+]
+
 const morgan = require ('morgan');
 
 //Middleware of application
@@ -33,7 +44,7 @@ app.use(morgan('dev'))
 
 //get home
 app.get('/home', (req, res, next) => {
-    res.status(`${runStatus}`).sendFile('/html/home.html', { root: __dirname});   
+    res.status(`${statusArray[0].runStatus}`).sendFile('/html/home.html', { root: __dirname});   
 });
 
 
@@ -55,28 +66,28 @@ const authMiddleware = (req, res, next) => {
 }
 //get about-me
 app.get('/about-me', authMiddleware, (req, res) => {
-    res.status(`${runStatus}`).sendFile('/html/aboutMe.html', { root: __dirname});   
+    res.status(`${statusArray[0].runStatus}`).sendFile('/html/aboutMe.html', { root: __dirname});   
 
 });
 
 
 //redirected user when he want to access on the root
 app.get('/', (req, res) => {
-    res.status(`${redirectedStatus}`).redirect('/home');   
+    res.status(`${statusArray[0].redirectedStatus}`).redirect('/home');   
 });
 
 //creat Middleware to serve when user try to enter a wrong url
 app.use((req, res) => {
-    res.status(`${pageNoFundStatus}`).sendFile('/html/pageNoFund.html', { root: __dirname});   
+    res.status(`${statusArray[0].pageNoFundStatus}`).sendFile('/html/pageNoFund.html', { root: __dirname});   
 })
 
 //Creat Middleware to display error message
 app.use((err, req, res, next) => {
     console.log(err.stack);
-    res.status(`${errorStatus}`).send(`${errorMessage}`)
+    res.status(`${statusArray[0].errorStatus}`).send(`${messagesArray[0].errorMessage}`)
 })
 
 app.listen(port, () => {
-    console.log(`${portMessage} ${port}`);
+    console.log(`${messagesArray[0].portMessage} ${port}`);
 });
 // console.log(`${errorMessage}`);
