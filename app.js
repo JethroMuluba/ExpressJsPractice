@@ -5,8 +5,9 @@ const messagesArray = [
     {
         portMessage : "This app is running on the port:",
         errorMessage : 'An error has occurred!',
+        pageNoFoundMessageforExperience : "Experiences Not Found",
     }
-]
+];
 
 const statusArray = [
     {
@@ -15,7 +16,9 @@ const statusArray = [
         pageNoFundStatus : 404,
         errorStatus : 500,
     }
-]
+];
+
+const experiences = require('./model/experciences.json');
 
 const morgan = require ('morgan');
 
@@ -70,6 +73,16 @@ app.get('/about-me', authMiddleware, (req, res) => {
 });
 
 //Creat Experiences rout
+app.get('/experiencrs/:id', (req, res) => {
+    const id = req.params.id;
+    const fetchExperiences = experiences.find(experience => experience.id == id);
+        if(fetchExperiences) {
+            res.status(`${statusArray[0].runStatus}`).json(fetchExperiences);
+        } else {
+            res.status(`${statusArray[0].pageNoFundStatus}`).send(`${messagesArray[0].pageNoFoundMessageforExperience}`)
+        }
+
+})
 
 
 
