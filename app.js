@@ -8,6 +8,10 @@ const errorStatus = 404;
 const redirectedStatus = 300;
 
 
+//Funtion that return static contents from public folder.
+app.use(express.static('public'));
+
+
 //Creat a Middleware to show the request times for each request.
 app.use((req, res, next) => {
     console.log("Time of requesting: " + Date().toString());
