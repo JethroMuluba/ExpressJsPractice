@@ -6,6 +6,7 @@ const errorMessage = 'Error during server creating';
 const runStatus = 200;
 const errorStatus = 404;
 const redirectedStatus = 300;
+const morgan = require ('morgan');
 
 
 //Creat a Middleware that return static contents from public folder.
@@ -17,6 +18,9 @@ app.use((req, res, next) => {
     console.log("Time of requesting: " + Date().toString());
     next();
 });
+
+//Creat a Middleware with morgan
+app.use(morgan('dev'))
 
 //get home
 app.get('/home', (req, res, next) => {
