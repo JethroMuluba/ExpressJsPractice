@@ -72,7 +72,7 @@ app.get('/about-me', authMiddleware, (req, res) => {
 
 });
 
-//Creat Experiences rout
+//Creat Experiences params rout 
 app.get('/experiencrs/:id', (req, res) => {
     const id = req.params.id;
     const fetchExperiences = experiences.find(experience => experience.id == id);
