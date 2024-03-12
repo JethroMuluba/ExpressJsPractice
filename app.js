@@ -44,6 +44,9 @@ app.use((req, res, next) => {
 //Creat a Middleware with morgan
 app.use(morgan('dev'))
 
+//the express.json() body parsing middleware
+app.use(express.json())
+
 //get home
 app.get('/home', (req, res, next) => {
     res.status(`${statusArray[0].runStatus}`).sendFile('/html/home.html', { root: __dirname});   
@@ -54,7 +57,7 @@ app.get('/home', (req, res, next) => {
 const authMiddleware = (req, res, next) => {
     const userAuthenticated = [
         {
-            userName : 'jethroMuluba',
+            userName : 'jethroMulub',
             password :1234,
         },
     ];
@@ -72,8 +75,14 @@ app.get('/about-me', authMiddleware, (req, res) => {
 
 });
 
+//get experiences
+app.get('/experiences', authMiddleware, (req, res) => {
+    res.status(`${statusArray[0].runStatus}`).sendFile('/model/experciences.json', { root: __dirname});   
+
+});
+
 //Creat Experiences params rout 
-app.get('/experiencrs/:id', (req, res) => {
+app.get('/experiences/:id', (req, res) => {
     const id = req.params.id;
     const fetchExperiences = experiences.find(experience => experience.id == id);
         if(fetchExperiences) {
@@ -84,7 +93,17 @@ app.get('/experiencrs/:id', (req, res) => {
 
 })
 
+//Creat New Experience
+app.post('/experiences', (req, res) => {
+    const creatExperienceId = experiences.length + 1 ;
+    const {servicePeriod, postOccuped, entreprise, details} = req.body
+    experiences.push({id:creatExperienceId, servicePeriod, postOccuped, entreprise, details});
+    res.send({
+        experiences : {id:creatExperienceId, servicePeriod:servicePeriod, postOccuped:postOccuped, entreprise:entreprise, details:details},
+        experiences : experiences
+    })
 
+})
 
 //redirected user when he want to access on the root
 app.get('/', (req, res) => {
@@ -102,6 +121,8 @@ app.use((err, req, res, next) => {
     res.status(`${statusArray[0].errorStatus}`).send(`${messagesArray[0].errorMessage}`)
 })
 
+
+//Start server
 app.listen(port, () => {
     console.log(`${messagesArray[0].portMessage} ${port}`);
 });
