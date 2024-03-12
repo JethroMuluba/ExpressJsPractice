@@ -2,10 +2,11 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const portMessage = "This app is running on the port:";
-const errorMessage = 'Error during server creating';
+const errorMessage = 'An error has occurred!';
 const runStatus = 200;
-const pageNoFundStatus = 404;
 const redirectedStatus = 300;
+const pageNoFundStatus = 404;
+const errorStatus = 500;
 const morgan = require ('morgan');
 
 //Middleware of application
@@ -67,6 +68,12 @@ app.get('/', (req, res) => {
 //creat Middleware to serve when user try to enter a wrong url
 app.use((req, res) => {
     res.status(`${pageNoFundStatus}`).sendFile('/html/pageNoFund.html', { root: __dirname});   
+})
+
+//Creat Middleware to display error message
+app.use((err, req, res, next) => {
+    console.log(err.stack);
+    res.status(`${errorStatus}`).send(`${errorMessage}`)
 })
 
 app.listen(port, () => {
